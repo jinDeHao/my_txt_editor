@@ -24,7 +24,7 @@ void prompt(int time)
 char *char_to_char(char *str, char rep, char to)
 {
     int i = 0;
-    char *buff = str/*strdup(str)*/;
+    char *buff = strdup(str);
 
     while (buff[i] != '\0')
     {
@@ -37,15 +37,35 @@ char *char_to_char(char *str, char rep, char to)
 char *no_char(char *str, char del)
 {
     int i = 0, j = 0;
-    char *sbuff, *buff = str/*malloc(strlen(str) + 1)*/;
+    char *sbuff, *buff;
+    
     sbuff = str;
+    buff = malloc(strlen(sbuff) + 1);
+    if (!buff)
+        return(NULL);
 
-    while (buff[i] != '\0')
+    while (sbuff[j] != '\0')
     {
-        buff[i] = sbuff[j];
-        if (buff[i] != del)
+        if (sbuff[j] != del)
+        {
+            buff[i] = sbuff[j];
             i++;
+        }
         j++;
     }
+    buff[i] = '\0';
     return(buff);
+}
+
+size_t num_char(char *str, char c)
+{
+    size_t num = 0, i;
+    char *sstr = str;
+
+    for (i = 0; sstr[i] != '\0'; i++)
+    {
+        if (sstr[i] == c)
+            num++;
+    }
+    return (num);
 }

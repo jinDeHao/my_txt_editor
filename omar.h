@@ -10,5 +10,6 @@
 void prompt(int time);
 char *char_to_char(char *str, char rep, char to);
 char *no_char(char *str, char del);
+size_t num_char(char *str, char c);
 
 #endif

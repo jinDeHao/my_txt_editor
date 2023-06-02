@@ -45,10 +45,13 @@ int main(void)
             else
                 res = char_to_char(string, op[3], op[5]);
         }
-        printf("this's your string after opiration : %s\n", string);
+        if (res == NULL)
+            printf("**%s$$command not found$$\ndo you mean \":q!\"\n", op);
+        else
+            printf("this's your string after opiration : %s\n", res);
         free(string);
-        /*if (res != NULL)
-            free(res);*/
+        if (res != NULL)
+            free(res);
         i++;
     }
     return (0);
