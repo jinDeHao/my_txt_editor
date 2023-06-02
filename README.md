@@ -12,8 +12,8 @@ Usage
     Run the program.
     Enter a string when prompted.
     Choose the desired operation:
-        To replace a character, enter "rp" followed by the character to be replaced and the replacement character.
-        To remove a character, enter "no" followed by the character to be removed.
+        To replace a character, enter "rp:" followed by the character to be replaced and ':' followed by the replacement character.
+        To remove a character, enter "no:" followed by the character to be removed.
     The program will display the modified string after applying the operation.
     Repeat the process to perform additional operations on the string.
 
@@ -32,7 +32,7 @@ Build and Run
 
 Run the executable:
 
-    `./omar_str_mani`
+    ./omar_str_mani
 
 Contributing
 
