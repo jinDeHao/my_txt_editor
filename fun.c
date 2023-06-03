@@ -57,7 +57,7 @@ char *no_char(char *str, char del)
     return(buff);
 }
 
-size_t num_char(char *str, char c)
+size_t howMany(char *str, char c)
 {
     size_t num = 0, i;
     char *sstr = str;
@@ -68,4 +68,17 @@ size_t num_char(char *str, char c)
             num++;
     }
     return (num);
+}
+
+char *no_surr_spaces(char *old_command)
+{
+	char *first = old_command, *end;
+
+    while(*first == ' ')
+        first++;
+    end = first + strlen(first) - 1;
+    while(*end == ' ')
+        end--;
+    *(end + 1) = '\0';
+    return(first);
 }

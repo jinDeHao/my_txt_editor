@@ -3,12 +3,13 @@
 int main(void)
 {
     size_t len;
-    char *string, op[13], *p_t_op, *res;
+    char *string, op[LINE_SIZE], *res, **cmd;
     int nr, i = 0;
 
     signal(SIGINT, SIG_IGN);
     while (1)
     {
+        cmd = NULL;
         string = NULL;
         res = NULL;
         prompt(i);
@@ -16,42 +17,45 @@ int main(void)
         if (nr < 0)
         {
             free(string);
+            free2D(cmd);
             break;
         }
         string[nr - 1] = '\0';
         if (strcmp(string, ":q!") == 0)
         {
             free(string);
+            free2D(cmd);
             exit(0);
         }
         write(STDOUT_FILENO, "which opiration do you want: ", 29);
-        nr = read(STDIN_FILENO, op, 13);
-        op[nr - 1] = '\0';
-        if (strncmp(op, "no", 2) == 0)
+        if ((nr = read(STDIN_FILENO, op, LINE_SIZE)) != -1)
         {
-            p_t_op = op;
-            p_t_op -= -3;
-            if (strncmp(p_t_op, "sp", 2) == 0)
-                res = no_char(string, ' ');
-            else
-                res = no_char(string, op[3]);
-        }
-        else if (strncmp(op, "rp", 2) == 0)
-        {
-            p_t_op = op;
-            p_t_op -= -3;
-            if (strncmp(p_t_op, "sp", 2) == 0)
-                res = char_to_char(string, ' ', op[6]);
-            else
-                res = char_to_char(string, op[3], op[5]);
+            op[nr - 1] = '\0';
+            char *pop = op;
+            cmd = cMc(pop); /*cMc is a function that creats multipe commands*/
+            if (strcmp(cmd[0], "no") == 0)
+            {
+                if (strcmp(cmd[1], "sp") == 0)
+                    res = no_char(string, ' ');
+                else
+                    res = no_char(string, *cmd[1]);
+            }
+            else if (strcmp(cmd[0], "rp") == 0)
+            {
+                if (strcmp(cmd[1], "sp") == 0)
+                    res = char_to_char(string, ' ', *cmd[2]);
+                else
+                    res = char_to_char(string, *cmd[1], *cmd[2]);
+            }
         }
         if (res == NULL)
-            printf("**%s$$command not found$$\ndo you mean \":q!\"\n", op);
+            printf("**%s$$command not found$$\ndo you mean \":q!\"\n", cmd[0]);
         else
             printf("this's your string after opiration : %s\n", res);
         free(string);
         if (res != NULL)
             free(res);
+        free2D(cmd);
         i++;
     }
     return (0);
