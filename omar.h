@@ -16,5 +16,7 @@ char *no_char(char *str, char del);
 size_t howMany(char *str, char c);
 void free2D(char **buff);
 char **cMc(char *cmdLine);
+char *process_string(char **process, char *string);
+char *forget_uppercase(char *string);
 
 #endif

@@ -82,3 +82,26 @@ char *no_surr_spaces(char *old_command)
     *(end + 1) = '\0';
     return(first);
 }
+
+char *forget_uppercase(char *string)
+{
+    char *str = strdup(string);
+    int i = 0, alpha = 0, mark;
+    while (str[i] != '\0')
+    {
+        if (i == 0 || alpha == 0 || mark == 1)
+        {
+            if (str[i] >= 'a' && str[i] <= 'z')
+            {
+                str[i] = str[i] - 32;
+                mark = 0;
+            }
+        }
+        if (str[i] != ' ' && alpha == 0)
+            alpha = 1;
+        if (str[i] == '.')
+            mark = 1;
+        i++;
+    }
+    return (str);
+}

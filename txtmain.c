@@ -33,20 +33,7 @@ int main(void)
             op[nr - 1] = '\0';
             char *pop = op;
             cmd = cMc(pop); /*cMc is a function that creats multipe commands*/
-            if (strcmp(cmd[0], "no") == 0)
-            {
-                if (strcmp(cmd[1], "sp") == 0)
-                    res = no_char(string, ' ');
-                else
-                    res = no_char(string, *cmd[1]);
-            }
-            else if (strcmp(cmd[0], "rp") == 0)
-            {
-                if (strcmp(cmd[1], "sp") == 0)
-                    res = char_to_char(string, ' ', *cmd[2]);
-                else
-                    res = char_to_char(string, *cmd[1], *cmd[2]);
-            }
+            res = process_string(cmd, string);
         }
         if (res == NULL)
             printf("**%s$$command not found$$\ndo you mean \":q!\"\n", cmd[0]);
